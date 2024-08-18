@@ -1,0 +1,353 @@
+﻿/* Estilos generales para la página de categorías */
+.category-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f5faff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.category-title {
+    color: #007bff;
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.action-link {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.table-header th {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+}
+
+.category-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+}
+
+    .category-table th, .category-table td {
+        padding: 12px;
+        text-align: center;
+        border: 1px solid #ddd;
+    }
+
+    .category-table tr:nth-child(even) {
+        background-color: #e9f2ff;
+    }
+
+    .category-table tr:hover {
+        background-color: #cce4ff;
+    }
+
+.action-buttons .btn {
+    margin-right: 5px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white;
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+    }
+
+.btn-info {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+    color: white;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: black;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: white;
+}
+
+    .btn-info:hover, .btn-warning:hover, .btn-danger:hover {
+        opacity: 0.8;
+    }
+
+
+
+
+
+
+/* Estilos generales para la página de detalles */
+.details-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f5faff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.details-title {
+    color: #007bff;
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.details-content {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+    .details-content h4 {
+        color: #0056b3;
+        font-size: 1.5em;
+    }
+
+.dl-horizontal dt {
+    width: 150px;
+    float: left;
+    clear: left;
+    text-align: left;
+    font-weight: bold;
+    color: #0056b3;
+}
+
+.dl-horizontal dd {
+    margin-left: 160px;
+    margin-bottom: 10px;
+    color: #333333;
+}
+
+.details-actions {
+    margin-top: 20px;
+    text-align: center;
+}
+
+    .details-actions .btn {
+        margin-right: 10px;
+    }
+
+.btn-warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: black;
+}
+
+    .btn-warning:hover {
+        background-color: #e0a800;
+        border-color: #d39e00;
+    }
+
+.btn-default {
+    background-color: #f8f9fa;
+    border-color: #f8f9fa;
+    color: black;
+}
+
+    .btn-default:hover {
+        background-color: #e2e6ea;
+        border-color: #dae0e5;
+    }
+
+
+
+
+/* Estilos generales para la página de detalles */
+.details-container, .form-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f5faff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.details-title, .form-title {
+    color: #007bff;
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.details-content, .form-content {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+    .details-content h4, .form-content h4 {
+        color: #0056b3;
+        font-size: 1.5em;
+    }
+
+.dl-horizontal dt {
+    width: 150px;
+    float: left;
+    clear: left;
+    text-align: left;
+    font-weight: bold;
+    color: #0056b3;
+}
+
+.dl-horizontal dd {
+    margin-left: 160px;
+    margin-bottom: 10px;
+    color: #333333;
+}
+
+.details-actions, .form-actions {
+    margin-top: 20px;
+    text-align: center;
+}
+
+    .details-actions .btn, .form-actions .btn {
+        margin-right: 10px;
+    }
+
+.btn-warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: black;
+}
+
+    .btn-warning:hover {
+        background-color: #e0a800;
+        border-color: #d39e00;
+    }
+
+.btn-default {
+    background-color: #f8f9fa;
+    border-color: #f8f9fa;
+    color: black;
+}
+
+    .btn-default:hover {
+        background-color: #e2e6ea;
+        border-color: #dae0e5;
+    }
+
+/* Estilos adicionales para formularios */
+.form-horizontal .form-group {
+    margin-bottom: 15px;
+}
+
+.form-horizontal .control-label {
+    font-weight: bold;
+    color: #0056b3;
+    text-align: left;
+}
+
+.form-horizontal .form-control {
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    box-shadow: none;
+    color: #495057;
+    padding: 8px;
+    font-size: 1rem;
+}
+
+    .form-horizontal .form-control:focus {
+        border-color: #80bdff;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
+.form-actions .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white;
+}
+
+    .form-actions .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+    }
+
+.form-actions .btn-cancel {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: white;
+}
+
+    .form-actions .btn-cancel:hover {
+        background-color: #5a6268;
+        border-color: #545b62;
+    }
+
+
+
+
+
+/* Estilos generales para la página de inicio */
+.home-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: #f5faff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.home-title {
+    color: #007bff;
+    font-size: 2.5em;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.home-description {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.home-options {
+    list-style-type: none;
+    padding: 0;
+}
+
+    .home-options li {
+        margin-bottom: 15px;
+    }
+
+    .home-options a {
+        display: inline-block;
+        width: 100%;
+        padding: 15px;
+        font-size: 1.2em;
+        text-align: center;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+        .home-options a:hover {
+            background-color: #0056b3;
+        }
+
+        .home-options a:active {
+            background-color: #003f7f;
+            transform: translateY(2px);
+        }

@@ -1,0 +1,30 @@
+﻿@model Ejemplo_importante.datos.Dto.ProductDto
+
+<h2>Eliminar Producto</h2>
+
+<h3>¿Estás seguro de que deseas eliminar este producto?</h3>
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>ID</dt>
+        <dd>@Model.ProductId</dd>
+
+        <dt>Nombre</dt>
+        <dd>@Model.ProductName</dd>
+
+        <dt>Descripción</dt>
+        <dd>@Model.Description</dd>
+
+        <dt>Precio</dt>
+        <dd>@Model.Price</dd>
+
+        <dt>Categoría</dt>
+        <dd>@Model.CategoryId</dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+<input type="submit" value="Eliminar" class="btn btn-danger" />
+                @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-default" })}
+</div>

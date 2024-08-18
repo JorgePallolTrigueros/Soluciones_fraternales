@@ -1,0 +1,23 @@
+﻿@{ ViewBag.Title = "Página de inicio"; }
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="home-container">
+        <h2 class="home-title">Bienvenido a la página de inicio</h2>
+        <p class="home-description">Selecciona una opción para gestionar los datos:</p>
+
+        <ul class="home-options">
+            <li>@Html.ActionLink("Gestionar Clientes", "Index", "Customer")</li>
+            <li>@Html.ActionLink("Gestionar Órdenes", "Index", "Order")</li>
+            <li>@Html.ActionLink("Gestionar Productos", "Index", "Product")</li>
+            <li>@Html.ActionLink("Gestionar Categorías", "Index", "Category")</li>
+        </ul>
+    </div>
+</body>
+</html>

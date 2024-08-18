@@ -1,0 +1,38 @@
+﻿@model Ejemplo_importante.datos.Dto.ProductDto
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Lista de Productos</title>
+    <link href="~/Content/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <h2>Detalles del Producto</h2>
+
+    <div>
+        <h4>Product</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>ID</dt>
+            <dd>@Model.ProductId</dd>
+
+            <dt>Nombre</dt>
+            <dd>@Model.ProductName</dd>
+
+
+
+            <dt>Precio</dt>
+            <dd>@Model.Price</dd>
+
+            <dt>Categoría</dt>
+            <dd>@Model.CategoryId</dd>
+        </dl>
+    </div>
+
+    <p>
+        @Html.ActionLink("Editar", "Edit", new { id = Model.ProductId }, new { @class = "btn btn-warning" }) |
+        @Html.ActionLink("Volver a la Lista", "Index", null, new { @class = "btn btn-default" })
+    </p>
+</body>
+</html>

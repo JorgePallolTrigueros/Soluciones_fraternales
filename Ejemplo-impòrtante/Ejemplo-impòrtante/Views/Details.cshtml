@@ -1,0 +1,21 @@
+﻿@model Ejemplo_importante.datos.Dto.CustomerDto
+
+@{
+    ViewBag.Title = "Detalles del Cliente";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalles del Cliente</h2>
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">@Model.FullName</h4>
+        <p class="card-text">Email: @Model.Email</p>
+        <p class="card-text">Teléfono: @Model.Phone</p>
+    </div>
+</div>
+
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.CustomerId }, new { @class = "btn btn-warning" }) |
+    @Html.ActionLink("Volver a la lista", "Index", null, new { @class = "btn btn-secondary" })
+</p>

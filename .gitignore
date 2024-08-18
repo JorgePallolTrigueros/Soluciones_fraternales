@@ -1,0 +1,63 @@
+# Build Folders
+##################
+## User-specific files ##
+##################
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+####################
+## User-specific folders ##
+####################
+.vscode/
+.ipch/
+.obj/
+.bin/
+_ReSharper*/
+.idea/
+.vscode/
+.vs/
+.vscode/
+
+#####################
+## Auto-generated files ##
+#####################
+*.log
+*.tlog
+*.idb
+*.pdb
+*.opendb
+*.VC.db
+*.VC.opendb
+*.gch
+*.tmp
+*.tmp_proj
+*.csproj.user
+*.sln.docstates
+*.swp
+
+# Visual Studio Code files
+.vscode/
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Cygwin
+.cygwin*
+
+# Windows 10 upgrade
+$GetCurrent/
+$WINDOWS.~BT/
+$WINDOWS.~WS/
+
+# Windows 10
+Windows.old/
