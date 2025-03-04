@@ -3,32 +3,60 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Lista de Órdenes</title>
+    <title>Lista de Clientes</title>
     <link href="~/Content/css/style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <h2>Detalles de la Orden</h2>
+    <h2>Crear Nuevo Cliente</h2>
 
-    <div>
-        <h4>Order</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>ID</dt>
-            <dd>@Model.OrderId</dd>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            <h4>Cliente</h4>
+            <hr />
+            <div class="form-group">
+                @Html.LabelFor(model => model.CustomerId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CustomerId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CustomerId, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-            <dt>Fecha</dt>
-            <dd>@Model.OrderDate</dd>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CustomerName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CustomerName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CustomerName, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-            <dt>Monto Total</dt>
-            <dd>@Model.TotalAmount</dd>
+            <div class="form-group">
+                @Html.LabelFor(model => model.OrderId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.OrderId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.OrderId, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-            <dt>ID de Cliente</dt>
-            <dd>@Model.CustomerId</dd>
-        </dl>
-    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.OrderDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.OrderDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.OrderDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Crear" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    }
 
     <p>
-        @Html.ActionLink("Editar", "Edit", new { id = Model.OrderId }, new { @class = "btn btn-warning" }) |
         @Html.ActionLink("Volver a la Lista", "Index", null, new { @class = "btn btn-default" })
     </p>
-    </body></html>
+</body>
+</html>

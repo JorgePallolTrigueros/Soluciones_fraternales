@@ -5,7 +5,7 @@ namespace Ejemplo_importante.datos
 {
     public class SecondDbContext : DbContext
     {
-        public SecondDbContext() : base("name=SecondSqlConnectionString")
+        public SecondDbContext() : base("name=SecondDatabase")
         {
         }
 
