@@ -1,30 +1,65 @@
-﻿@model Ejemplo_importante.datos.Dto.ProductDto
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Eliminar Producto</title>
+    <link rel="stylesheet" href="~/Content/css/style.css" />
+</head>
+<body class="fetch-style">
 
-<h2>Eliminar Producto</h2>
+    <div class="container">
+        <h2 class="fetch-header">Eliminar Producto</h2>
 
-<h3>¿Estás seguro de que deseas eliminar este producto?</h3>
-<div>
-    <h4>Product</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>ID</dt>
-        <dd>@Model.ProductId</dd>
+        <h3 class="fetch-warning">¿Estás seguro de que deseas eliminar este producto?</h3>
 
-        <dt>Nombre</dt>
-        <dd>@Model.ProductName</dd>
+        <div class="fetch-form">
+            <dl class="dl-horizontal">
+                <dt>ID</dt>
+                <dd>@Model.ProductId</dd>
 
-        <dt>Descripción</dt>
-        <dd>@Model.Description</dd>
+                <dt>Nombre</dt>
+                <dd>@Model.ProductName</dd>
 
-        <dt>Precio</dt>
-        <dd>@Model.Price</dd>
+                <dt>Precio</dt>
+                <dd>@Model.Price</dd>
 
-        <dt>Categoría</dt>
-        <dd>@Model.CategoryId</dd>
-    </dl>
+                <dt>Categoría</dt>
+                <dd>@Model.CategoryId</dd>
+            </dl>
 
-    @using (Html.BeginForm())
-    {
-<input type="submit" value="Eliminar" class="btn btn-danger" />
-                @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-default" })}
-</div>
+            <button onclick="deleteProduct(@Model.ProductId)" class="btn fetch-delete">Eliminar</button>
+            <a href="/Product/Index" class="btn fetch-cancel">Cancelar</a>
+
+            <p id="messageBox" class="fetch-message"></p>
+        </div>
+    </div>
+
+    <script>
+        function deleteProduct(productId) {
+            console.log("Intentando eliminar producto con ID:", productId);
+
+            if (!confirm("¿Estás seguro de que deseas eliminar este producto?")) return;
+
+            fetch(`/Product/DeleteConfirmed/${productId}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Respuesta del servidor:", data);
+
+                    if (data.success) {
+                        window.location.href = "/Product/Index";
+                    } else {
+                        document.getElementById("messageBox").innerText = data.message;
+                    }
+                })
+                .catch(error => {
+                    document.getElementById("messageBox").innerText = "Error al eliminar el producto.";
+                    console.error("Error al eliminar el producto:", error);
+                });
+        }
+    </script>
+
+</body>
+</html>

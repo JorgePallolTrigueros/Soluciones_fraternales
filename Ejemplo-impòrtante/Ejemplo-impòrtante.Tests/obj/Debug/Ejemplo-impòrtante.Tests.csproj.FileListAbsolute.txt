@@ -1,0 +1,2 @@
+C:\Users\jorge\Source\Repos\Soluciones_fraternales\Ejemplo-impòrtante\Ejemplo-impòrtante.Tests\obj\Debug\Ejemplo-impòrtante.Tests.csproj.AssemblyReference.cache
+C:\Users\jorge\Source\Repos\Soluciones_fraternales\Ejemplo-impòrtante\Ejemplo-impòrtante.Tests\obj\Debug\Ejemplo-impòrtante.Tests.csproj.CoreCompileInputs.cache

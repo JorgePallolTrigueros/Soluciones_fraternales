@@ -1,0 +1,359 @@
+﻿
+
+
+
+/* ********************************************* */
+/* ********************************************* */
+/* ********************************************* */
+/* ********************************************* */
+/* ********************************************* */
+/* ********************************************* */
+
+/* 🌟 Estilos Generales - Verde Esmeralda 🟢 */
+/* 🔵 Estilos para Customer en Azul Real */
+.customer-body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+}
+
+.customer-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 123, 255, 0.2);
+    border-left: 5px solid #007bff;
+}
+
+.customer-title {
+    text-align: center;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+.customer-subtitle {
+    font-size: 18px;
+    color: #0056b3;
+    margin-bottom: 15px;
+}
+
+.form-label {
+    font-weight: bold;
+    color: #333;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* 🔵 Estilos para Detalles del Cliente en Azul Real */
+.customer-body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+}
+
+.customer-container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 123, 255, 0.2);
+    border-left: 5px solid #007bff;
+}
+
+.customer-title {
+    text-align: center;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+.customer-subtitle {
+    font-size: 18px;
+    color: #0056b3;
+    margin-bottom: 15px;
+}
+
+.customer-info {
+    font-size: 16px;
+    color: #333;
+}
+
+    .customer-info p {
+        margin-bottom: 10px;
+        padding: 5px;
+        background-color: #e9f2ff;
+        border-left: 4px solid #007bff;
+        border-radius: 5px;
+    }
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    color: black;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+
+/* 🔵 Estilos generales para Customer en azul real */
+.customer-body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+}
+
+.customer-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 123, 255, 0.2);
+    border-left: 5px solid #007bff;
+}
+
+.customer-title {
+    text-align: center;
+    color: #007bff;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.customer-action {
+    text-align: right;
+    margin-bottom: 15px;
+}
+
+.customer-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+    .customer-table thead {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .customer-table th, .customer-table td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .customer-table tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+
+.customer-actions a {
+    text-decoration: none;
+    padding: 8px 12px;
+    margin: 3px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+.btn-info {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    color: black;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-info:hover {
+    background-color: #117a8b;
+}
+
+.btn-warning:hover {
+    background-color: #d39e00;
+}
+
+.btn-danger:hover {
+    background-color: #bd2130;
+}
+
+/* 🔵 Estilos generales */
+.order-body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+}
+
+/* 📦 Contenedor de órdenes */
+.order-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 123, 255, 0.2);
+    border-left: 5px solid #007bff;
+}
+
+/* 📌 Título */
+.order-title {
+    text-align: center;
+    color: #007bff;
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* 📋 Tabla */
+.order-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+}
+
+.table-header {
+    background-color: #007bff;
+    color: white;
+    font-size: 18px;
+}
+
+.order-table th, .order-table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.order-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* 🎨 Botones */
+.action-buttons {
+    text-align: center;
+}
+
+.btn {
+    padding: 8px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+.btn-info {
+    background-color: #17a2b8;
+    color: white;
+}
+
+    .btn-info:hover {
+        background-color: #138496;
+    }
+
+.btn-warning {
+    background-color: #ffc107;
+    color: black;
+}
+
+    .btn-warning:hover {
+        background-color: #e0a800;
+    }
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+    .btn-danger:hover {
+        background-color: #c82333;
+    }
+
+/* 🎯 Estilos para la sección de acciones */
+.action-link {
+    text-align: center;
+    margin-bottom: 15px;
+}

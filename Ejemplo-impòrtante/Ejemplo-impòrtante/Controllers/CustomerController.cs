@@ -1,6 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using Ejemplo_importante.datos.Dto;
 using Ejemplo_importante.Interfaces;
-using Ejemplo_importante.datos.Dto;
+using System;
+using System.Web.Mvc;
 
 namespace Ejemplo_impòrtante.Controllers
 {
@@ -65,6 +66,50 @@ namespace Ejemplo_impòrtante.Controllers
             }
             return View(customer);
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        [HttpPost]
+        public JsonResult DeleteCustomer(int id)  // 🔥 Cambiado el nombre para evitar conflicto
+        {
+            try
+            {
+                if (id <= 0)
+                {
+                    return Json(new { success = false, message = "ID inválido." });
+                }
+
+                var customer = _customerService.GetCustomerById(id);
+                if (customer == null)
+                {
+                    return Json(new { success = false, message = "Cliente no encontrado." });
+                }
+
+                _customerService.DeleteCustomer(id);
+                return Json(new { success = true, message = "Cliente eliminado correctamente." });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Error al eliminar el cliente: " + ex.Message });
+            }
+        }
+
+
 
         public ActionResult Delete(int id)
         {

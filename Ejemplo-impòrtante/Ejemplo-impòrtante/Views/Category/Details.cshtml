@@ -3,33 +3,20 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <meta charset="utf-8" />
     <title>Detalles de la Categoría</title>
-    <link href="~/Content/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/style1.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <div class="details-container">
-        <h2 class="details-title">Detalles de la Categoría</h2>
+    <h2>Detalles de la Categoría</h2>
 
-        <div class="details-content">
-            <h4>Categoría</h4>
-            <hr />
-            <dl class="dl-horizontal">
-                <dt>ID</dt>
-                <dd>@Model.CategoryId</dd>
-
-                <dt>Nombre</dt>
-                <dd>@Model.CategoryName</dd>
-
-                <dt>Descripción</dt>
-                <dd>@Model.Description</dd>
-            </dl>
-        </div>
-
-        <div class="details-actions">
-            @Html.ActionLink("Editar", "Edit", new { id = Model.CategoryId }, new { @class = "btn btn-warning" }) |
-            @Html.ActionLink("Volver a la Lista", "Index", null, new { @class = "btn btn-default" })
-        </div>
+    <div>
+        <p><strong>ID:</strong> @Model.CategoryId</p>
+        <p><strong>Nombre:</strong> @Model.CategoryName</p>
+        <p><strong>Descripción:</strong> @Model.Description</p>
     </div>
+
+    <a href="/Category/Index" class="btn btn-secondary">Volver a la Lista</a>
 </body>
 </html>

@@ -1,3 +1,62 @@
 ﻿@model Ejemplo_importante.datos.Dto.CustomerDto
 
-<h2>Eliminar Cliente</h
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Eliminar Cliente</title>
+    <link rel="stylesheet" href="~/Content/css/style3.css" />
+</head>
+<body>
+    <div class="delete-container">
+        <h2 class="delete-title">🗑️ Eliminar Cliente</h2>
+        <p>¿Estás seguro de que deseas eliminar este cliente?</p>
+
+        <div class="delete-details">
+            <h4>📌 Detalles del Cliente</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>ID:</dt>
+                <dd>@Model.CustomerId</dd>
+
+                <dt>Nombre Completo:</dt>
+                <dd>@Model.FullName</dd>
+
+                <dt>Email:</dt>
+                <dd>@Model.Email</dd>
+
+                <dt>Teléfono:</dt>
+                <dd>@Model.Phone</dd>
+            </dl>
+        </div>
+
+        <!-- ✅ Botones para eliminar o cancelar -->
+        <div class="delete-actions">
+            <button onclick="deleteCustomer(@Model.CustomerId)" class="btn btn-danger">🗑️ Eliminar</button>
+            <a href="/Customer/Index" class="btn btn-secondary">❌ Cancelar</a>
+        </div>
+    </div>
+
+    <script>
+        function deleteCustomer(customerId) {
+            if (!confirm("¿Estás seguro de que deseas eliminar este cliente?")) return;
+
+            fetch(`/Customer/DeleteCustomer`, {  // 🔥 Cambiado de "/Customer/Delete" a "/Customer/DeleteCustomer"
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: customerId })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(data.message);
+                        window.location.href = "/Customer/Index";
+                    } else {
+                        alert("Error: " + data.message);
+                    }
+                })
+                .catch(error => console.error("Error al eliminar el cliente:", error));
+        }
+    </script>
+</body>
+</html>

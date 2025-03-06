@@ -1,44 +1,105 @@
-﻿@model IEnumerable<Ejemplo_importante.datos.Dto.CategoryDto>
+﻿<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<a href="@Url.Action("Create", "Category")" class="btn btn-success">Crear Nueva Categoría</a>
 
+<table class="table table-striped table-hover category-table">
+    <thead class="table-header">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody id="categoryTableBody"></tbody>
+</table>
+
+@model Ejemplo_importante.datos.Dto.CategoryDto
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <title>Lista de Categorías</title>
-    <link href="~/Content/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/style1.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <div class="category-container">
-        <h2 class="category-title">Lista de Categorías</h2>
 
-        <div class="action-link">
-            @Html.ActionLink("Crear Nueva Categoría", "Create", null, new { @class = "btn btn-primary" })
-        </div>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: '/Category/GetCategories',
+                method: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    var tableBody = $('#categoryTableBody');
+                    tableBody.empty();
+                    $.each(data, function (index, category) {
+                        tableBody.append(`
+                                        <tr>
+                                            <td>${category.CategoryId}</td>
+                                            <td>${category.CategoryName}</td>
+                                            <td>${category.Description}</td>
+                                            <td>
+               <a href="/Category/Details/${category.CategoryId}" class="btn btn-info">Detalles</a>
+                <a href="/Category/Edit/${category.CategoryId}" class="btn btn-warning">Editar</a>
+                <a href="/Category/Delete/${category.CategoryId}" class="btn btn-danger">Eliminar</a>
+                                            </td>
+                                        </tr>
+                                    `);
+                    });
+                },
+                error: function () {
+                    alert('Error al cargar las categorías.');
+                }
+            });
+        });
 
-        <table class="table table-striped table-hover category-table">
-            <thead class="table-header">
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var category in Model)
-                {
-    <tr>
-        <td>@category.CategoryId</td>
-        <td>@category.CategoryName</td>
-        <td>@category.Description</td>
-        <td class="action-buttons">
-            @Html.ActionLink("Detalles", "Details", new { id = category.CategoryId }, new { @class = "btn btn-info" }) |
-            @Html.ActionLink("Editar", "Edit", new { id = category.CategoryId }, new { @class = "btn btn-warning" }) |
-            @Html.ActionLink("Eliminar", "Delete", new { id = category.CategoryId }, new { @class = "btn btn-danger" })
-        </td>
-    </tr>}
-            </tbody>
-        </table>
-    </div>
+        // ✅ Función para ver detalles de una categoría
+        function viewCategory(id) {
+            $.ajax({
+                url: `/Category/GetCategoryById?id=${id}`,
+                method: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    if (response.success) {
+                        alert(`Categoría: ${response.data.CategoryName}\nDescripción: ${response.data.Description}`);
+                    } else {
+                        alert("Error: " + response.message);
+                    }
+                },
+                error: function () {
+                    alert("Error al obtener los detalles de la categoría.");
+                }
+            });
+        }
+
+        // ✅ Función para editar una categoría
+        function editCategory(id) {
+            window.location.href = `/Category/Edit/${id}`;
+        }
+
+        // ✅ Función para eliminar una categoría con confirmación
+        function deleteCategory(id) {
+            if (!confirm("¿Estás seguro de que deseas eliminar esta categoría?")) return;
+
+            $.ajax({
+                url: '/Category/Delete',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ id: id }),
+                success: function (response) {
+                    if (response.success) {
+                        alert(response.message);
+                        location.reload();
+                    } else {
+                        alert("Error: " + response.message);
+                    }
+                },
+                error: function () {
+                    alert("Error al eliminar la categoría.");
+                }
+            });
+        }
+    </script>
+
 </body>
 </html>

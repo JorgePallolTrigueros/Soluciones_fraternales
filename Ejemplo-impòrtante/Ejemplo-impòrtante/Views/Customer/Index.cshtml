@@ -1,22 +1,22 @@
 ﻿@model IEnumerable<Ejemplo_importante.datos.Dto.CustomerDto>
 
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="utf-8" />
     <title>Lista de Clientes</title>
-    <link href="~/Content/css/style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/Content/css/style3.css" />
 </head>
-<body>
+<body class="customer-body">
     <div class="customer-container">
         <h2 class="customer-title">Lista de Clientes</h2>
 
-        <div class="action-link">
-            @Html.ActionLink("Crear Nuevo Cliente", "Create", null, new { @class = "btn btn-primary" })
+        <div class="customer-action">
+            @Html.ActionLink("➕ Crear Nuevo Cliente", "Create", null, new { @class = "btn btn-primary" })
         </div>
 
-        <table class="table table-striped table-hover category-table">
-            <thead class="table-header">
+        <table class="customer-table">
+            <thead>
                 <tr>
                     <th>ID</th>
                     <th>Nombre</th>
@@ -28,18 +28,18 @@
             <tbody>
                 @foreach (var customer in Model)
                 {
-        <tr>
-            <td>@customer.CustomerId</td>
-            <td>@customer.FullName</td>
-            <td>@customer.Email</td>
-            <td>@customer.Phone</td>
-            <td class="action-buttons">
-                @Html.ActionLink("Detalles", "Details", new { id = customer.CustomerId }, new { @class = "btn btn-info" }) |
-                @Html.ActionLink("Editar", "Edit", new { id = customer.CustomerId }, new { @class = "btn btn-warning" }) |
-                @Html.ActionLink("Eliminar", "Delete", new { id = customer.CustomerId }, new { @class = "btn btn-danger" })
-            </td>
-        </tr>
-}
+                    <tr>
+                        <td>@customer.CustomerId</td>
+                        <td>@customer.FullName</td>
+                        <td>@customer.Email</td>
+                        <td>@customer.Phone</td>
+                        <td class="customer-actions">
+                            <a href="@Url.Action("Details", "Customer", new { id = customer.CustomerId })" class="btn btn-info">📄 Detalles</a>
+                            <a href="@Url.Action("Edit", "Customer", new { id = customer.CustomerId })" class="btn btn-warning">✏️ Editar</a>
+                            <a href="@Url.Action("Delete", "Customer", new { id = customer.CustomerId })" class="btn btn-danger">🗑 Eliminar</a>
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
     </div>

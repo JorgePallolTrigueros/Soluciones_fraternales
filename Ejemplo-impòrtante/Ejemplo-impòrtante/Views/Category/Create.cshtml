@@ -2,45 +2,43 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <meta charset="utf-8" />
     <title>Lista de Categorías</title>
-    <link href="~/Content/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/style1.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <h2>Crear Nueva Categoría</h2>
+    <form id="categoryForm">
+        <input type="text" id="categoryName" placeholder="Nombre de la categoría" required class="form-control" />
+        <textarea id="categoryDescription" placeholder="Descripción" class="form-control"></textarea>
+        <button type="submit" class="btn btn-primary">Crear</button>
+    </form>
 
-    @using (Html.BeginForm())
-    {
-@Html.AntiForgeryToken()
-                <div class="form-horizontal">
-                    <h4>Categoría</h4>
-                    <hr />
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.CategoryName, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.CategoryName, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.CategoryName, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
+    <script>
+        $('#categoryForm').submit(function (e) {
+            e.preventDefault();
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.TextAreaFor(model => model.Description, new { @class = "form-control", rows = 5 })
-                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
+            var category = {
+                CategoryName: $('#categoryName').val(),
+                Description: $('#categoryDescription').val()
+            };
 
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Crear" class="btn btn-primary" />
-                        </div>
-                    </div>
-                </div>}
-
-    <p>
-        @Html.ActionLink("Volver a la Lista", "Index", null, new { @class = "btn btn-default" })
-    </p>
+            $.ajax({
+                url: '/Category/Create',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(category),
+                success: function (response) {
+                    if (response.success) {
+                        alert(response.message);
+                        window.location.href = "/Category/Index";
+                    } else {
+                        alert("Error: " + response.message);
+                    }
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>

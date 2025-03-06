@@ -1,8 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Ejemplo_importante.datos.Dto;
 using Ejemplo_importante.datos.Entities;
 using Ejemplo_importante.datos.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 
 namespace Ejemplo_importante.datos.Repository
 {
@@ -15,36 +17,103 @@ namespace Ejemplo_importante.datos.Repository
             _context = context;
         }
 
+        // ✅ Obtener todas las categorías
         public IEnumerable<Category> GetAllCategories()
         {
-            return _context.Categories.ToList();
+            try
+            {
+                return _context.Categories.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener las categorías: " + ex.Message);
+            }
         }
 
+        // ✅ Obtener una categoría por ID
         public Category GetCategoryById(int categoryId)
         {
-            return _context.Categories.Find(categoryId);
+            try
+            {
+                var category = _context.Categories.Find(categoryId);
+                if (category == null)
+                {
+                    throw new Exception("Categoría no encontrada.");
+                }
+                return category;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener la categoría: " + ex.Message);
+            }
         }
 
+
+
+
+
+        // ✅ Agregar una nueva categoría
         public void AddCategory(Category category)
         {
+            if (category == null)
+            {
+                throw new ArgumentNullException(nameof(category), "La categoría no puede ser nula.");
+            }
+
             _context.Categories.Add(category);
             _context.SaveChanges();
         }
 
+
+
+
+
+
+        // ✅ Actualizar una categoría existente
         public void UpdateCategory(Category category)
         {
-            _context.Entry(category).State = System.Data.Entity.EntityState.Modified;
-            _context.SaveChanges();
+            try
+            {
+                if (category == null)
+                {
+                    throw new ArgumentException("La categoría no puede ser nula.");
+                }
+
+                var existingCategory = _context.Categories.Find(category.CategoryId);
+                if (existingCategory == null)
+                {
+                    throw new Exception("La categoría no existe.");
+                }
+
+                _context.Entry(existingCategory).CurrentValues.SetValues(category);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al actualizar la categoría: " + ex.Message);
+            }
         }
 
+        // ✅ Eliminar una categoría
         public void DeleteCategory(int categoryId)
         {
-            var category = _context.Categories.Find(categoryId);
-            if (category != null)
+            try
             {
+                var category = _context.Categories.Find(categoryId);
+                if (category == null)
+                {
+                    throw new Exception("La categoría no existe.");
+                }
+
                 _context.Categories.Remove(category);
                 _context.SaveChanges();
             }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al eliminar la categoría: " + ex.Message);
+            }
         }
+
+
     }
 }

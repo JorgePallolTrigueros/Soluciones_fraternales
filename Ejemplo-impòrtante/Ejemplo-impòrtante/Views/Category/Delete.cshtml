@@ -1,34 +1,39 @@
 ﻿@model Ejemplo_importante.datos.Dto.CategoryDto
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>Lista de Categorías</title>
-    <link href="~/Content/css/style.css" rel="stylesheet" type="text/css" />
-</head>
-<body>
-    <h2>Eliminar Categoría</h2>
 
-    <div>
-        <h4>¿Estás seguro de que quieres eliminar esta categoría?</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>ID</dt>
-            <dd>@Model.CategoryId</dd>
+<h2>Eliminar Categoría</h2>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<p><strong>ID:</strong> @Model.CategoryId</p>
+<p><strong>Nombre:</strong> @Model.CategoryName</p>
+<p>¿Estás seguro de que deseas eliminar esta categoría?</p>
 
-            <dt>Nombre</dt>
-            <dd>@Model.CategoryName</dd>
+<!-- Botón de eliminar con el ID correcto -->
+<button id="deleteButton" class="btn btn-danger">Eliminar</button>
+<a href="/Category/Index" class="btn btn-secondary">Cancelar</a>
+<link href="~/Content/css/style1.css" rel="stylesheet" type="text/css" />
+<script>
+    $(document).ready(function () {
+        $("#deleteButton").click(function () {
+            var categoryId = @Model.CategoryId; // Captura el ID de la categoría
 
-            <dt>Descripción</dt>
-            <dd>@Model.Description</dd>
-        </dl>
-    </div>
+            if (!confirm("¿Estás seguro de que deseas eliminar esta categoría?")) return;
 
-    @using (Html.BeginForm())
-    {
-@Html.AntiForgeryToken()
-                <input type="submit" value="Eliminar" class="btn btn-danger" />
-                                @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-default" })}
-
-</body>
-</html>
+            $.ajax({
+                url: '/Category/DeleteConfirmed',  // ✅ Ahora llama a DeleteConfirmed
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ id: categoryId }),
+                success: function (response) {
+                    if (response.success) {
+                        alert(response.message);
+                        window.location.href = "/Category/Index";
+                    } else {
+                        alert("Error: " + response.message);
+                    }
+                },
+                error: function () {
+                    alert("Error al eliminar la categoría.");
+                }
+            });
+        });
+    });
+</script>

@@ -1,46 +1,79 @@
-﻿@model IEnumerable<Ejemplo_importante.datos.Dto.ProductDto>
-
-<!DOCTYPE html>
-<html>
+﻿<!DOCTYPE html>
+<html lang="es">
 <head>
     <meta charset="utf-8" />
     <title>Lista de Productos</title>
-    <link href="~/Content/css/style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/Content/css/style.css" />
 </head>
-<body>
-    <div class="product-container">
-        <h2 class="product-title">Lista de Productos</h2>
+<body class="fetch-style">
 
-        <div class="action-link">
-            @Html.ActionLink("Crear Nuevo Producto", "Create", null, new { @class = "btn btn-primary" })
+    <div class="container">
+        <h2 class="fetch-header">Lista de Productos</h2>
+
+        <div class="fetch-actions">
+            <button onclick="window.location.href='/Product/Create'" class="btn fetch-add">Crear Nuevo Producto</button>
         </div>
 
-        <table class="table table-striped table-hover category-table">
-            <thead class="table-header">
+        <table class="fetch-table">
+            <thead>
                 <tr>
                     <th>ID</th>
                     <th>Nombre</th>
                     <th>Precio</th>
-                    <th>Categoría</th> <!-- Nueva columna para la categoría -->
+                    <th>Categoría</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
-            <tbody>
-                @foreach (var product in Model)
-                {
-    <tr>
-        <td>@product.ProductId</td>
-        <td>@product.ProductName</td>
-        <td>@product.Price</td>
-        <td>@product.CategoryName</td> <!-- Muestra el nombre de la categoría -->
-        <td class="action-buttons">
-            @Html.ActionLink("Detalles", "Details", new { id = product.ProductId }, new { @class = "btn btn-info" }) |
-            @Html.ActionLink("Editar", "Edit", new { id = product.ProductId }, new { @class = "btn btn-warning" }) |
-            @Html.ActionLink("Eliminar", "Delete", new { id = product.ProductId }, new { @class = "btn btn-danger" })
-        </td>
-    </tr>}
-            </tbody>
+            <tbody id="productTableBody"></tbody>
         </table>
     </div>
+
+    <script>
+        function loadProducts() {
+            fetch('/Product/GetProducts')
+                .then(response => response.json())
+                .then(data => {
+                    let tableBody = document.getElementById("productTableBody");
+                    tableBody.innerHTML = "";
+                    data.forEach(product => {
+                        tableBody.innerHTML += `
+                                <tr>
+                                    <td>${product.ProductId}</td>
+                                    <td>${product.ProductName}</td>
+                                    <td>$${product.Price.toFixed(2)}</td>
+                                    <td>${product.CategoryName || 'Sin Categoría'}</td>
+                                    <td>
+                                        <button onclick="window.location.href='/Product/Details/${product.ProductId}'" class="btn fetch-details">Detalles</button>
+                                        <button onclick="window.location.href='/Product/Edit/${product.ProductId}'" class="btn fetch-edit">Editar</button>
+                                        <button onclick="deleteProduct(${product.ProductId})" class="btn fetch-delete">Eliminar</button>
+                                    </td>
+                                </tr>
+                            `;
+                    });
+                })
+                .catch(error => console.error("Error al cargar productos:", error));
+        }
+
+        function deleteProduct(productId) {
+            if (!confirm("¿Estás seguro de que deseas eliminar este producto?")) return;
+
+            fetch(`/Product/DeleteConfirmed/${productId}`, {  // ✅ Corrige la URL para eliminar
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        loadProducts();
+                    } else {
+                        console.error("Error:", data.message);
+                    }
+                })
+                .catch(error => console.error("Error al eliminar el producto:", error));
+        }
+
+        document.addEventListener("DOMContentLoaded", loadProducts);
+    </script>
+
 </body>
 </html>

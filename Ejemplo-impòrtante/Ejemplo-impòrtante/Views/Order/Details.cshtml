@@ -1,45 +1,37 @@
 ﻿@model Ejemplo_importante.datos.Dto.OrderDto
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="utf-8" />
-    <title>Lista de Órdenes</title>
-    <link href="~/Content/css/style.css" rel="stylesheet" type="text/css" />
+    <title>Detalles de la Orden</title>
+    <link rel="stylesheet" href="~/Content/css/style3.css" />
 </head>
-<body>
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="utf-8" />
-        <title>Detalles de la Orden</title>
-        <link href="~/Content/css/style.css" rel="stylesheet" type="text/css" />
-    </head>
-    <body>
-        <div class="details-container">
-            <h2 class="details-title">Detalles de la Orden</h2>
+<body class="order-body">
+    <div class="details-container">
+        <h2 class="details-title">📜 Detalles de la Orden</h2>
 
-            <div class="details-content">
-                <h4>Orden</h4>
-                <hr />
-                <dl class="dl-horizontal">
-                    <dt>ID</dt>
-                    <dd>@Model.OrderId</dd>
+        <div class="details-content">
+            <h4>Información de la Orden</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>ID de Orden</dt>
+                <dd>@Model.OrderId</dd>
 
-                    <dt>Cliente</dt>
-                    <dd>@Model.CustomerId </dd>
+                <dt>ID Cliente</dt>
+                <dd>@Model.CustomerId</dd>
 
-                    <dt>Fecha</dt>
-                    <dd>@Model.OrderDate</dd>
+                <dt>Fecha</dt>
+                <dd>@Model.OrderDate.ToString("dd/MM/yyyy")</dd>
 
-                    <dt>Total</dt>
-                    <dd>@Model.TotalAmount</dd>
-                </dl>
-            </div>
-
-            <div class="details-actions">
-                @Html.ActionLink("Editar", "Edit", new { id = Model.OrderId }, new { @class = "btn btn-warning" }) |
-                @Html.ActionLink("Volver a la Lista", "Index", null, new { @class = "btn btn-default" })
-            </div>
+                <dt>Total</dt>
+                <dd>$@Model.TotalAmount.ToString("F2")</dd>
+            </dl>
         </div>
-    </body>
+
+        <div class="details-actions">
+            @Html.ActionLink("✏️ Editar", "Edit", new { id = Model.OrderId }, new { @class = "btn btn-warning" })
+            @Html.ActionLink("⬅️ Volver a la Lista", "Index", null, new { @class = "btn btn-secondary" })
+        </div>
+    </div>
+</body>
 </html>

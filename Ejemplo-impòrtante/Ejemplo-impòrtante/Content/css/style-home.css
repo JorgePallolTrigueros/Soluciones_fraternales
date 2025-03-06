@@ -1,0 +1,73 @@
+﻿/* Estilos generales */
+.home-body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    padding: 50px;
+}
+
+/* Contenedor principal */
+.home-container {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    width: 50%;
+}
+
+/* Título */
+.home-title {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+/* Descripción */
+.home-description {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+/* Botones */
+.home-options {
+    display: flex;
+    flex-direction: column; /* Uno debajo del otro */
+    gap: 15px; /* Espaciado entre botones */
+}
+
+    /* Estilos de botones */
+    .home-options a {
+        display: block;
+        padding: 15px;
+        font-size: 22px;
+        font-weight: bold;
+        color: white;
+        text-decoration: none; /* Quita el subrayado */
+        border-radius: 5px;
+        text-align: center;
+        transition: transform 0.2s, opacity 0.2s;
+    }
+
+        /* Efecto hover */
+        .home-options a:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+
+/* Colores por tipo de llamada */
+.btn-customer {
+    background-color: #0073e6;
+}
+/* Azul real */
+.btn-order {
+    background-color: #0073e6;
+}
+/* Azul más oscuro */
+.btn-product {
+    background-color: #ff6600;
+}
+/* Naranja */
+.btn-category {
+    background-color: #28a745;
+}
+/* Verde */

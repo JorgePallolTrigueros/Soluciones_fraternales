@@ -1,38 +1,82 @@
-﻿@model Ejemplo_importante.datos.Dto.ProductDto
-<!DOCTYPE html>
-
-<html>
+﻿<!DOCTYPE html>
+<html lang="es">
 <head>
     <meta charset="utf-8" />
-    <title>Lista de Productos</title>
-    <link href="~/Content/css/style.css" rel="stylesheet" type="text/css" />
+    <title>Detalles del Producto</title>
+    <link rel="stylesheet" href="~/Content/css/style.css" />
 </head>
-<body>
-    <h2>Detalles del Producto</h2>
+<body class="fetch-style">
 
-    <div>
-        <h4>Product</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>ID</dt>
-            <dd>@Model.ProductId</dd>
+    <div class="container">
+        <h2 class="fetch-header">Detalles del Producto</h2>
 
-            <dt>Nombre</dt>
-            <dd>@Model.ProductName</dd>
+        <div id="messageBox" class="fetch-message"></div> <!-- 🔴 Mensaje de error/success -->
 
+        <div id="productDetails" class="fetch-card">
+            <h4>Producto</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>ID</dt>
+                <dd id="productId"></dd>
 
+                <dt>Nombre</dt>
+                <dd id="productName"></dd>
 
-            <dt>Precio</dt>
-            <dd>@Model.Price</dd>
+                <dt>Precio</dt>
+                <dd id="productPrice"></dd>
 
-            <dt>Categoría</dt>
-            <dd>@Model.CategoryId</dd>
-        </dl>
+                <dt>Categoría</dt>
+                <dd id="productCategory"></dd>
+            </dl>
+        </div>
+
+        <p class="fetch-buttons">
+            <button id="editButton" class="btn fetch-edit">Editar</button>
+            <a href="/Product/Index" class="btn fetch-back">Volver a la Lista</a>
+        </p>
     </div>
 
-    <p>
-        @Html.ActionLink("Editar", "Edit", new { id = Model.ProductId }, new { @class = "btn btn-warning" }) |
-        @Html.ActionLink("Volver a la Lista", "Index", null, new { @class = "btn btn-default" })
-    </p>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // 📌 Obtener el ID de la URL
+            const urlParts = window.location.pathname.split('/');
+            let productId = urlParts[urlParts.length - 1];
+
+            if (!productId || isNaN(productId)) {
+                console.error("ID no encontrado en la URL");
+                document.getElementById("messageBox").innerText = "ID del producto no encontrado.";
+                return;
+            }
+
+            console.log("Obteniendo producto con ID:", productId);
+
+            fetch(`/Product/GetProductById?id=${productId}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Respuesta del servidor:", data);
+
+                    if (data.success) {
+                        document.getElementById("productId").innerText = data.data.ProductId;
+                        document.getElementById("productName").innerText = data.data.ProductName;
+                        document.getElementById("productPrice").innerText = data.data.Price;
+                        document.getElementById("productCategory").innerText = data.data.CategoryName || data.data.CategoryId;
+
+                        // Botón Editar redirige a la vista de edición
+                        document.getElementById("editButton").onclick = function () {
+                            window.location.href = `/Product/Edit/${data.data.ProductId}`;
+                        };
+                    } else {
+                        document.getElementById("messageBox").innerText = "Producto no encontrado.";
+                        document.getElementById("productDetails").innerHTML = "";
+                    }
+                })
+                .catch(error => {
+                    console.error("Error al obtener el producto:", error);
+                    document.getElementById("messageBox").innerText = "Error al cargar los detalles del producto.";
+                });
+        });
+
+    </script>
+
 </body>
 </html>

@@ -1,0 +1,125 @@
+﻿
+
+
+
+/* ********************************************* */
+/* ********************************************* */
+/* ********************************************* */
+/* ********************************************* */
+/* ********************************************* */
+/* ********************************************* */
+
+/* 🌟 Estilos Generales - Verde Esmeralda 🟢 */
+body {
+    background-color: #e6f7e6; /* Fondo verde claro */
+    color: #2c6e49; /* Verde oscuro */
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+/* 🌟 Contenedor Principal */
+.container {
+    max-width: 900px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* 🌟 Encabezado */
+.header {
+    background-color: #2c6e49; /* Verde oscuro */
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* 🌟 Botones */
+.btn {
+    padding: 10px 15px;
+    text-transform: uppercase;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+    .btn:hover {
+        opacity: 0.8;
+    }
+
+/* 🟢 Botón de Acción */
+.btn-success {
+    background-color: #28a745; /* Verde fuerte */
+    color: white;
+}
+
+.btn-warning {
+    background-color: #f39c12; /* Amarillo */
+    color: white;
+}
+
+.btn-danger {
+    background-color: #dc3545; /* Rojo */
+    color: white;
+}
+
+.btn-info {
+    background-color: #17a2b8; /* Azul */
+    color: white;
+}
+
+.btn-default {
+    background-color: #6c757d; /* Gris */
+    color: white;
+}
+
+/* 🌟 Tabla */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+    .table th, .table td {
+        padding: 12px;
+        border: 1px solid #2c6e49; /* Borde verde */
+        text-align: center;
+    }
+
+    .table th {
+        background-color: #2c6e49; /* Verde oscuro */
+        color: white;
+    }
+
+/* 🌟 Formulario */
+.form-control {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #28a745; /* Borde verde */
+    border-radius: 5px;
+}
+
+/* 🌟 Mensajes de Error */
+.error-message {
+    color: #dc3545;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* 🌟 Contenedor de Mensajes */
+#messageBox {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 15px;
+}

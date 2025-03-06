@@ -1,1 +1,62 @@
-﻿@model Ej
+﻿@model Ejemplo_importante.datos.Dto.OrderDto
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Eliminar Orden</title>
+    <link href="~/Content/css/style3.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="delete-container">
+        <h2 class="delete-title">🗑️ Eliminar Orden</h2>
+        <p>¿Estás seguro de que deseas eliminar esta orden?</p>
+
+        <div class="delete-details">
+            <h4>📌 Detalles de la Orden</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>ID:</dt>
+                <dd>@Model.OrderId</dd>
+
+                <dt>Cliente:</dt>
+                <dd>@Model.CustomerId</dd>
+
+                <dt>Fecha:</dt>
+                <dd>@Model.OrderDate</dd>
+
+                <dt>Total:</dt>
+                <dd>@Model.TotalAmount</dd>
+            </dl>
+        </div>
+
+        <!-- ✅ Botones para eliminar o cancelar -->
+        <div class="delete-actions">
+            <button onclick="deleteOrder(@Model.OrderId)" class="btn btn-danger">🗑️ Eliminar</button>
+            <a href="/Order/Index" class="btn btn-secondary">❌ Cancelar</a>
+        </div>
+    </div>
+
+    <script>
+        function deleteOrder(orderId) {
+            if (!confirm("¿Estás seguro de que deseas eliminar esta orden?")) return;
+
+            fetch(`/Order/DeleteConfirmed`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: orderId })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(data.message);
+                        window.location.href = "/Order/Index";
+                    } else {
+                        alert("Error: " + data.message);
+                    }
+                })
+                .catch(error => console.error("Error al eliminar la orden:", error));
+        }
+    </script>
+</body>
+</html>

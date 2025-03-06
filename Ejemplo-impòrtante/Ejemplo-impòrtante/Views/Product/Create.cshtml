@@ -1,46 +1,62 @@
-﻿@model Ejemplo_importante.datos.Dto.ProductDto
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Crear Producto</title>
+    <link rel="stylesheet" href="~/Content/css/style.css" />
+</head>
+<body class="fetch-style">
 
-<h2>Crear Nuevo Producto</h2>
+    <div class="container">
+        <h2 class="fetch-header">Crear Nuevo Producto</h2>
 
-@using (Html.BeginForm())
-{
-@Html.AntiForgeryToken()
-                <div class="form-horizontal">
-                    <h4>Product</h4>
-                    <hr />
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
+        <form id="createProductForm" class="fetch-form">
+            <div class="form-group">
+                <label for="productName">Nombre del Producto</label>
+                <input type="text" id="productName" placeholder="Nombre del producto" class="form-control" required />
+            </div>
 
+            <div class="form-group">
+                <label for="price">Precio</label>
+                <input type="number" id="price" placeholder="Precio" class="form-control" required />
+            </div>
 
+            <div class="form-group">
+                <label for="categoryId">Categoría ID</label>
+                <input type="number" id="categoryId" placeholder="Categoría ID" class="form-control" required />
+            </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
+            <button type="submit" class="btn fetch-button">Crear</button>
+            <a href="/Product/Index" class="btn fetch-cancel">Cancelar</a>
+        </form>
+    </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.CategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.CategoryId, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
+    <script>
+        document.getElementById("createProductForm").addEventListener("submit", function (event) {
+            event.preventDefault();
 
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Crear" class="btn btn-primary" />
-                        </div>
-                    </div>
-                </div>}
+            const product = {
+                ProductName: document.getElementById("productName").value,
+                Price: document.getElementById("price").value,
+                CategoryId: document.getElementById("categoryId").value
+            };
 
-<p>
-    @Html.ActionLink("Volver a la Lista", "Index", null, new { @class = "btn btn-default" })
-</p>
+            fetch('/Product/Create', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(product)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = "/Product/Index";
+                    } else {
+                        alert("Error: " + data.message);
+                    }
+                })
+                .catch(error => console.error("Error al crear el producto:", error));
+        });
+    </script>
+
+</body>
+</html>
