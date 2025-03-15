@@ -14,27 +14,111 @@ namespace Ejemplo_importante.Controllers
             _productService = productService;
         }
 
-        // ✅ Cargar la vista principal
+        // ✅ 1. Página principal
         public ActionResult Index()
         {
             return View();
         }
 
-
-        public ActionResult Details(int id)
+        // ✅ 2. Mostrar la vista parcial de "Detalles" en un modal
+        public PartialViewResult Details(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
-            {
-                return HttpNotFound("Producto no encontrado.");
-            }
-            return View(product);
+                return PartialView("_Error", new { message = "Producto no encontrado." });
+
+            return PartialView("Details", product);
         }
 
+        // ✅ 3. Mostrar la vista parcial de "Crear" en un modal
+        public PartialViewResult Create()
+        {
+            return PartialView("Create");
+        }
 
+        // ✅ 4. Crear un nuevo producto (POST, AJAX)
+        [HttpPost]
+        public JsonResult Create(ProductDto product)
+        {
+            try
+            {
+                if (product == null || string.IsNullOrWhiteSpace(product.ProductName) || product.Price <= 0)
+                {
+                    return Json(new { success = false, message = "Datos inválidos." });
+                }
 
+                _productService.AddProduct(product);
+                return Json(new { success = true, message = "Producto agregado correctamente." });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Error al agregar el producto: " + ex.Message });
+            }
+        }
 
-        // ✅ Obtener todos los productos en formato JSON
+        // ✅ 5. Mostrar la vista parcial de "Editar" en un modal
+        public PartialViewResult Edit(int id)
+        {
+            var product = _productService.GetProductById(id);
+            if (product == null)
+                return PartialView("_Error", new { message = "Producto no encontrado." });
+
+            return PartialView("Edit", product);
+        }
+
+        // ✅ 6. Actualizar un producto (POST, AJAX)
+        [HttpPost]
+        public JsonResult Edit(ProductDto product)
+        {
+            try
+            {
+                if (product == null || product.ProductId <= 0 || string.IsNullOrWhiteSpace(product.ProductName) || product.Price <= 0)
+                {
+                    return Json(new { success = false, message = "Datos inválidos." });
+                }
+
+                _productService.UpdateProduct(product);
+                return Json(new { success = true, message = "Producto actualizado correctamente." });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Error al actualizar el producto: " + ex.Message });
+            }
+        }
+
+        // ✅ 7. Mostrar la vista parcial de "Eliminar" en un modal
+        public PartialViewResult Delete(int id)
+        {
+            var product = _productService.GetProductById(id);
+            if (product == null)
+                return PartialView("_Error", new { message = "Producto no encontrado." });
+
+            return PartialView("Delete", product);
+        }
+
+        // ✅ 8. Eliminar un producto (POST, AJAX)
+        [HttpPost]
+        public JsonResult DeleteConfirmed(int id)
+        {
+            try
+            {
+                if (id <= 0)
+                    return Json(new { success = false, message = "ID inválido." });
+
+                var product = _productService.GetProductById(id);
+                if (product == null)
+                    return Json(new { success = false, message = "Producto no encontrado." });
+
+                _productService.DeleteProduct(id);
+                return Json(new { success = true, message = "Producto eliminado correctamente." });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Error al eliminar el producto: " + ex.Message });
+            }
+        }
+
+        // ✅ 9. Obtener todos los productos en JSON (para cargar en una tabla, por ejemplo)
         [HttpGet]
         public JsonResult GetProducts()
         {
@@ -49,22 +133,18 @@ namespace Ejemplo_importante.Controllers
             }
         }
 
-        // ✅ Obtener detalles de un producto en JSON
+        // ✅ 10. Obtener un producto por ID en JSON
         [HttpGet]
         public JsonResult GetProductById(int id)
         {
             try
             {
                 if (id <= 0)
-                {
                     return Json(new { success = false, message = "ID inválido." }, JsonRequestBehavior.AllowGet);
-                }
 
                 var product = _productService.GetProductById(id);
                 if (product == null)
-                {
                     return Json(new { success = false, message = "Producto no encontrado." }, JsonRequestBehavior.AllowGet);
-                }
 
                 return Json(new { success = true, data = product }, JsonRequestBehavior.AllowGet);
             }
@@ -73,114 +153,5 @@ namespace Ejemplo_importante.Controllers
                 return Json(new { success = false, message = "Error al obtener el producto: " + ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-
-
-        public ActionResult Create()
-        {
-            return View(); // No se necesita buscar un producto porque es nuevo
-        }
-
-
-
-        // ✅ Crear un nuevo producto con `fetch`
-        [HttpPost]
-        public JsonResult Create(ProductDto product)
-        {
-            try
-            {
-                if (product == null || string.IsNullOrWhiteSpace(product.ProductName) || product.Price <= 0)
-                {
-                    return Json(new { success = false, message = "Datos del producto inválidos." });
-                }
-
-                _productService.AddProduct(product);
-                return Json(new { success = true, message = "Producto agregado correctamente." });
-            }
-            catch (Exception ex)
-            {
-                return Json(new { success = false, message = "Error al agregar el producto: " + ex.Message });
-            }
-        }
-
-        // ✅ Mostrar la vista de edición con el producto cargado
-        public ActionResult Edit(int id)
-        {
-            var product = _productService.GetProductById(id);
-            if (product == null)
-            {
-                return HttpNotFound();
-            }
-            return View(product);
-        }
-
-        // ✅ Actualizar un producto con `fetch`
-        [HttpPost]
-        public JsonResult Edit(ProductDto product)
-        {
-            try
-            {
-                if (product == null || product.ProductId <= 0 || string.IsNullOrWhiteSpace(product.ProductName) || product.Price <= 0)
-                {
-                    return Json(new { success = false, message = "Datos del producto inválidos." });
-                }
-
-                _productService.UpdateProduct(product);
-                return Json(new { success = true, message = "Producto actualizado correctamente." });
-            }
-            catch (Exception ex)
-            {
-                return Json(new { success = false, message = "Error al actualizar el producto: " + ex.Message });
-            }
-        }
-
-        // ✅ Eliminar un producto con `fetch`
-        // ✅ ELIMINAR PRODUCTO (JSON)
-        [HttpPost]
-        public JsonResult DeleteConfirmed(int id)
-        {
-            try
-            {
-                Console.WriteLine("ID recibido en el controlador: " + id); // 🛠 Depurar en la consola del servidor
-
-                if (id <= 0)
-                {
-                    return Json(new { success = false, message = "ID inválido." });
-                }
-
-                var product = _productService.GetProductById(id);
-                if (product == null)
-                {
-                    return Json(new { success = false, message = "Producto no encontrado." });
-                }
-
-                _productService.DeleteProduct(id);
-                return Json(new { success = true, message = "Producto eliminado correctamente." });
-            }
-            catch (Exception ex)
-            {
-                return Json(new { success = false, message = "Error al eliminar el producto: " + ex.Message });
-            }
-        }
-
-
-
-
-
-
-        public ActionResult Delete(int id)
-        {
-            var product = _productService.GetProductById(id);
-            if (product == null)
-            {
-                return HttpNotFound();
-            }
-            return View(product); // ✅ Retorna la vista `Delete.cshtml` con el producto cargado.
-        }
-
-
-
-
-
-
     }
 }

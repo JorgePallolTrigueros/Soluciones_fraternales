@@ -1,62 +1,82 @@
-﻿<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="utf-8" />
-    <title>Crear Producto</title>
-    <link rel="stylesheet" href="~/Content/css/style.css" />
-</head>
-<body class="fetch-style">
+﻿<div class="modal-header">
+    <h5 class="modal-title">Crear Nuevo Producto</h5>
+    <button type="button" class="close" onclick="modalManager.closeModal()">&times;</button>
+</div>
 
-    <div class="container">
-        <h2 class="fetch-header">Crear Nuevo Producto</h2>
+<div class="modal-body">
+    <div id="messageBox" class="alert d-none"></div> <!-- Mensaje de éxito/error -->
 
-        <form id="createProductForm" class="fetch-form">
-            <div class="form-group">
-                <label for="productName">Nombre del Producto</label>
-                <input type="text" id="productName" placeholder="Nombre del producto" class="form-control" required />
-            </div>
+    <form id="createProductForm">
+        <div class="form-group">
+            <label for="productName">Nombre del Producto</label>
+            <input type="text" id="productName" class="form-control" placeholder="Nombre del producto" required />
+        </div>
 
-            <div class="form-group">
-                <label for="price">Precio</label>
-                <input type="number" id="price" placeholder="Precio" class="form-control" required />
-            </div>
+        <div class="form-group">
+            <label for="price">Precio</label>
+            <input type="number" id="price" class="form-control" placeholder="Precio" required />
+        </div>
 
-            <div class="form-group">
-                <label for="categoryId">Categoría ID</label>
-                <input type="number" id="categoryId" placeholder="Categoría ID" class="form-control" required />
-            </div>
+        <div class="form-group">
+            <label for="categoryId">Categoría ID</label>
+            <input type="number" id="categoryId" class="form-control" placeholder="Categoría ID" required />
+        </div>
+    </form>
+</div>
 
-            <button type="submit" class="btn fetch-button">Crear</button>
-            <a href="/Product/Index" class="btn fetch-cancel">Cancelar</a>
-        </form>
-    </div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" onclick="modalManager.closeModal()">Cancelar</button>
+    <button type="submit" class="btn btn-primary" id="createButton">Crear</button>
+</div>
 
-    <script>
-        document.getElementById("createProductForm").addEventListener("submit", function (event) {
-            event.preventDefault();
+<script>
+    document.getElementById("createButton").addEventListener("click", function () {
+        const product = {
+            ProductName: document.getElementById("productName").value,
+            Price: parseFloat(document.getElementById("price").value),
+            CategoryId: parseInt(document.getElementById("categoryId").value)
+        };
 
-            const product = {
-                ProductName: document.getElementById("productName").value,
-                Price: document.getElementById("price").value,
-                CategoryId: document.getElementById("categoryId").value
-            };
+        fetch('/Product/Create', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(product)
+        })
+            .then(response => response.json())
+            .then(data => {
+                const messageBox = document.getElementById("messageBox");
+                messageBox.classList.remove("d-none", "alert-success", "alert-danger");
 
-            fetch('/Product/Create', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(product)
+                if (data.success) {
+                    messageBox.classList.add("alert-success");
+                    messageBox.innerText = data.message;
+
+                    setTimeout(() => {
+                        modalManager.closeModal();
+                        reloadProductList(); // Refresca la lista de productos sin recargar la página
+                    }, 1500);
+                } else {
+                    messageBox.classList.add("alert-danger");
+                    messageBox.innerText = data.message;
+                }
             })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        window.location.href = "/Product/Index";
-                    } else {
-                        alert("Error: " + data.message);
-                    }
-                })
-                .catch(error => console.error("Error al crear el producto:", error));
-        });
-    </script>
+            .catch(error => {
+                console.error("Error al crear el producto:", error);
+                const messageBox = document.getElementById("messageBox");
+                messageBox.classList.remove("d-none");
+                messageBox.classList.add("alert-danger");
+                messageBox.innerText = "Error al crear el producto.";
+            });
+    });
 
-</body>
-</html>
+    // Simula una recarga de la lista de productos (debes implementarlo en tu frontend)
+    function reloadProductList() {
+        fetch('/Product/GetProducts')
+            .then(response => response.json())
+            .then(data => {
+                console.log("Lista de productos actualizada", data);
+                // Aquí deberías actualizar la lista de productos en la página sin recargar.
+            })
+            .catch(error => console.error("Error al recargar productos:", error));
+    }
+</script>

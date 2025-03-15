@@ -1,63 +1,88 @@
-﻿<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="utf-8" />
-    <title>Editar Producto</title>
-    <link rel="stylesheet" href="~/Content/css/style.css" />
-</head>
-<body class="fetch-style">
+﻿@using Ejemplo_importante.datos.Dto
+@model ProductDto
 
-    <div class="container">
-        <h2 class="fetch-header">Editar Producto</h2>
+<div class="modal-header">
+    <h5 class="modal-title">Editar Producto</h5>
+    <button type="button" class="close" onclick="modalManager.closeModal()">&times;</button>
+</div>
 
-        <div id="messageBox" class="fetch-message"></div> <!-- 🔴 Mensaje de error/success -->
+<div class="modal-body">
+    <div id="messageBox" class="alert d-none"></div> <!-- Mensaje de éxito/error -->
 
-        <form id="editProductForm" class="fetch-form">
-            <input type="hidden" id="productId" value="@Model.ProductId" />
+    <form id="editProductForm">
+        <input type="hidden" id="productId" value="@Model.ProductId" />
 
-            <label for="productName" class="fetch-label">Nombre del Producto</label>
-            <input type="text" id="productName" value="@Model.ProductName" placeholder="Nombre del producto" class="form-control" required />
+        <div class="mb-3">
+            <label for="productName" class="form-label">Nombre del Producto</label>
+            <input type="text" id="productName" value="@Model.ProductName" class="form-control" required />
+        </div>
 
-            <label for="price" class="fetch-label">Precio</label>
-            <input type="number" id="price" value="@Model.Price" placeholder="Precio" class="form-control" required />
+        <div class="mb-3">
+            <label for="price" class="form-label">Precio</label>
+            <input type="number" id="price" value="@Model.Price" class="form-control" required />
+        </div>
 
-            <label for="categoryId" class="fetch-label">Categoría ID</label>
-            <input type="number" id="categoryId" value="@Model.CategoryId" placeholder="Categoría ID" class="form-control" required />
+        <div class="mb-3">
+            <label for="categoryId" class="form-label">Categoría ID</label>
+            <input type="number" id="categoryId" value="@Model.CategoryId" class="form-control" required />
+        </div>
+    </form>
+</div>
 
-            <button type="submit" class="btn fetch-save">Guardar</button>
-            <a href="/Product/Index" class="btn fetch-back">Cancelar</a>
-        </form>
-    </div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" onclick="modalManager.closeModal()">Cancelar</button>
+    <button type="submit" class="btn btn-primary" id="saveEditButton">Guardar</button>
+</div>
 
-    <script>
-        document.getElementById("editProductForm").addEventListener("submit", function (event) {
-            event.preventDefault();
+<script>
+    document.getElementById("saveEditButton").addEventListener("click", function () {
+        const product = {
+            ProductId: document.getElementById("productId").value,
+            ProductName: document.getElementById("productName").value,
+            Price: parseFloat(document.getElementById("price").value),
+            CategoryId: parseInt(document.getElementById("categoryId").value)
+        };
 
-            const product = {
-                ProductId: document.getElementById("productId").value,
-                ProductName: document.getElementById("productName").value,
-                Price: document.getElementById("price").value,
-                CategoryId: document.getElementById("categoryId").value
-            };
+        fetch('/Product/Edit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(product)
+        })
+            .then(response => response.json())
+            .then(data => {
+                const messageBox = document.getElementById("messageBox");
+                messageBox.classList.remove("d-none", "alert-success", "alert-danger");
 
-            fetch('/Product/Edit', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(product)
+                if (data.success) {
+                    messageBox.classList.add("alert-success");
+                    messageBox.innerText = data.message;
+
+                    setTimeout(() => {
+                        modalManager.closeModal();
+                        reloadProductList(); // Función para actualizar la tabla sin recargar la página
+                    }, 1500);
+                } else {
+                    messageBox.classList.add("alert-danger");
+                    messageBox.innerText = data.message;
+                }
             })
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById("messageBox").innerText = data.message;
-                    if (data.success) {
-                        setTimeout(() => window.location.href = "/Product/Index", 1500); // Redirigir tras éxito
-                    }
-                })
-                .catch(error => {
-                    console.error("Error al actualizar el producto:", error);
-                    document.getElementById("messageBox").innerText = "Error al actualizar el producto.";
-                });
-        });
-    </script>
+            .catch(error => {
+                console.error("Error al actualizar el producto:", error);
+                const messageBox = document.getElementById("messageBox");
+                messageBox.classList.remove("d-none");
+                messageBox.classList.add("alert-danger");
+                messageBox.innerText = "Error al actualizar el producto.";
+            });
+    });
 
-</body>
-</html>
+    // Simula una recarga de la lista de productos (debes implementarlo en tu frontend)
+    function reloadProductList() {
+        fetch('/Product/GetProducts')
+            .then(response => response.json())
+            .then(data => {
+                console.log("Lista de productos actualizada", data);
+                // Aquí deberías actualizar tu lista en la página sin recargar.
+            })
+            .catch(error => console.error("Error al recargar productos:", error));
+    }
+</script>

@@ -14,16 +14,8 @@ namespace Ejemplo_importante.datos.Dto
         public string LastName { get; set; }  // Apellido del Cliente
         public string Email { get; set; }     // Correo electrónico del Cliente
         public string Phone { get; set; }     // Teléfono del Cliente
-
         // Propiedad calculada para el nombre completo
         public string FullName => $"{FirstName} {LastName}";
-
-
-
-
-
-
-
     }
 }
 

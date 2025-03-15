@@ -11,9 +11,7 @@ namespace Ejemplo_importante.datos.Dto
         public int OrderId { get; set; }
         public DateTime OrderDate { get; set; }
         public decimal TotalAmount { get; set; }
-
         public int CustomerId { get; set; } // Identificador del cliente
         public string CustomerName { get; set; } // Nombre completo del cliente
-
     }
 }
